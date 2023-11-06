@@ -1,0 +1,23 @@
+
+aws:
+  accessKeyId: EMPTY
+  secretKey: EMPTY
+  region: us-west-1
+  dynamoDBUrl: http://localhost:8000
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb  # H2 in-memory database for JPA
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  data:
+    dynamodb:
+      endpoint: http://localhost:8000
+      region: local
+      entity2ddl:
+        auto: true
+  server:
+    port: 8081

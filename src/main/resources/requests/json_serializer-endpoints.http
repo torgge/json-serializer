@@ -1,19 +1,7 @@
 ###
-POST http://localhost:8080/documents
+POST http://localhost:8081/documents
 Content-Type: application/json
 
 {
     "data": "{\"name\":\"teste\",\"id\":123}"
 }
-
-<> 2023-10-31T000500.500.json
-<> 2023-10-30T234907.400.json
-<> 2023-10-30T234618.400.json
-<> 2023-10-30T234604.400.json
-<> 2023-10-30T234458.400.json
-<> 2023-10-30T234243.400.json
-<> 2023-10-30T233852.400.json
-<> 2023-10-30T233850.400.json
-<> 2023-10-30T233745.400.json
-<> 2023-10-30T233735.400.json
-<> 2023-10-30T233518.400.json

@@ -1,4 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.Properties
+
+// Load properties from gradle.properties
+val props = Properties()
+props.load(project.rootProject.file("gradle.properties").inputStream())
 
 plugins {
     id("org.springframework.boot") version "3.1.5"
@@ -8,7 +13,7 @@ plugins {
 }
 
 group = "org.bonespirito"
-version = "0.0.1-SNAPSHOT"
+version = props.getProperty("applicationVersion")
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -18,15 +23,32 @@ repositories {
     mavenCentral()
 }
 
+println("Spring Boot Version: ${props.getProperty("springBootVersion")}")
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web:3.1.5")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.json:json:20231013")
-    implementation("com.beust:klaxon:5.6")
-    implementation("com.networknt:json-schema-validator:1.0.87")
-    developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:${props.getProperty("springBootVersion")}")
+    implementation(
+        "com.fasterxml.jackson.module:jackson-module-kotlin:" +
+            props.getProperty("jacksonModuleKotlinVersion"),
+    )
+//    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${props.getProperty("kotlinReflectVersion")}")
+    implementation("org.json:json:${props.getProperty("jsonVersion")}")
+    implementation("com.beust:klaxon:${props.getProperty("klaxonVersion")}")
+    implementation("com.networknt:json-schema-validator:${props.getProperty("jsonSchemaValidatorVersion")}")
+
+    implementation("org.springframework.boot:spring-boot-starter:${props.getProperty("springBootVersion")}")
+    implementation("com.google.code.gson:gson:${props.getProperty("gsonVersion")}")
+    implementation(platform("software.amazon.awssdk:bom:${props.getProperty("awsSdkVersion")}"))
+    implementation("software.amazon.awssdk:dynamodb:${props.getProperty("awsSdkVersion")}")
+
+    implementation("io.github.boostchicken:spring-data-dynamodb:${props.getProperty("springDataDynamodbVersion")}")
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools:${props.getProperty("springBootDevtoolsVersion")}")
+    testImplementation(
+        "org.springframework.boot:spring-boot-starter-test:" +
+            props.getProperty("springBootStarterTestVersion"),
+    )
 }
 
 tasks.withType<KotlinCompile> {
